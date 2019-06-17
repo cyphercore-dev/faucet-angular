@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { WsService } from './services/ws.service';
+import { Store } from '@ngrx/store';
+import { State } from './state';
+import { selectConsensusState } from './state/consensus/consensus.reducers';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +10,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'coris-v2';
+  consensus$ = this.appStore.select(selectConsensusState);
+
+  constructor(
+    private wsService: WsService,
+    private appStore: Store<State>
+  ) { }
 }
