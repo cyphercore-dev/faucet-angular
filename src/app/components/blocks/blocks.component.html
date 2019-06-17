@@ -1,23 +1,20 @@
 <table cdk-table [dataSource]="dataSource">
-  <!-- Position Column -->
+
   <ng-container cdkColumnDef="height">
     <th cdk-header-cell *cdkHeaderCellDef> Height </th>
     <td cdk-cell *cdkCellDef="let element"> {{element.height}} </td>
   </ng-container>
 
-  <!-- Name Column -->
   <ng-container cdkColumnDef="hash">
     <th cdk-header-cell *cdkHeaderCellDef> Hash </th>
     <td cdk-cell *cdkCellDef="let element"> {{element.hash|slice:0:12}}... </td>
   </ng-container>
 
-  <!-- Weight Column -->
   <ng-container cdkColumnDef="proposer">
     <th cdk-header-cell *cdkHeaderCellDef> Proposer </th>
     <td cdk-cell *cdkCellDef="let element"> {{element.proposer|slice:0:10}}... </td>
   </ng-container>
 
-  <!-- Symbol Column -->
   <ng-container cdkColumnDef="txs">
     <th cdk-header-cell *cdkHeaderCellDef> Txs </th>
     <td cdk-cell *cdkCellDef="let element"> {{element.txs}} </td>

@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 export enum TxsActionTypes {
-  UPDATE_TXS = 'UPDATE_BLOCKS'
+  UPDATE_TXS = 'UPDATE_TXS'
 }
 
 export class UpdateTxs implements Action {
