@@ -5,6 +5,16 @@ import { createSelector } from '@ngrx/store';
 
 export function blocksReducers(blocksState = initialBlocksState, action): BlocksState {
   switch(action.type) {
+
+    case BlocksActionTypes.ADD_BLOCK: {
+      return {
+        ...blocksState,
+        blocks: [
+          action.payload,
+          ...blocksState.blocks
+        ],
+      }
+    }
     
     case BlocksActionTypes.UPDATE_BLOCKS: {
       return {

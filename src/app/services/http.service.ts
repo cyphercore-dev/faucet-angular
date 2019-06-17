@@ -5,7 +5,7 @@ import { range, forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { State } from '../state';
 import { Store } from '@ngrx/store';
-import { UpdateBlocks } from '../state/blocks/blocks.actions';
+import { UpdateBlocks, AddBlock } from '../state/blocks/blocks.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +68,20 @@ export class HttpService {
     });
   }
 
+  add1Block(height) {
+    this.get1Block(height).subscribe( (block:any) => {
+      this.appStore.dispatch(new AddBlock(
+        {
+          height: block.header.height,
+          hash: block.block_id.hash,
+          proposer: block.header.proposer_address,
+          txs: block.header.num_txs,
+          time: block.header.time,
+        })
+      );
+    });
+  }
+
   get100Blocks(height) { 
     return forkJoin(
       this.get20Blocks(height),
@@ -83,6 +97,14 @@ export class HttpService {
           .get(`${nodeRpc2}/blockchain?minHeight=${height-20}&maxHeight=${height}`)
           .pipe(
             map((res:any) => res.result.block_metas)
+          );
+  }
+
+  get1Block(height):Observable<any[]> {
+    return this.httpClient
+          .get(`${nodeRpc2}/blockchain?minHeight=${height}&maxHeight=${height}`)
+          .pipe(
+            map((res:any) => res.result.block_metas[0])
           );
   }
 

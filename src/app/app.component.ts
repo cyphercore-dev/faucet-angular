@@ -3,7 +3,7 @@ import { WsService } from './services/ws.service';
 import { Store } from '@ngrx/store';
 import { State } from './state';
 import { selectConsensusState, selectConsensusHeight } from './state/consensus/consensus.reducers';
-import { skipWhile, map, first, filter, mergeMap, concatMap } from 'rxjs/operators';
+import { skipWhile, map, first, filter, mergeMap, concatMap, skip } from 'rxjs/operators';
 import { HttpService } from './services/http.service';
 import { selectBlocks } from './state/blocks/blocks.reducers';
 import { from } from 'rxjs';
@@ -37,8 +37,20 @@ export class AppComponent implements OnInit{
       first()
     )
     .subscribe( (height: any) => {
+      console.log(height)
       this.httpService
       .init100Blocks(height);
+
+      this.appStore
+      .select(selectConsensusHeight)
+      .pipe( 
+        skip(1),
+        map( height => height-1 )
+      )
+      .subscribe( (height: any) => {
+        this.httpService.add1Block(height);
+      });
+
     });
   }
 

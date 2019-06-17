@@ -1,9 +1,15 @@
 import { Action } from '@ngrx/store';
 
 export enum BlocksActionTypes {
+  ADD_BLOCK = "ADD_BLOCK",
   UPDATE_BLOCKS = 'UPDATE_BLOCKS',
   UPDATE_BLOCKS_TIME = 'UPDATE_BLOCKS_TIME',
   UPDATE_BLOCKS_TIME_AVG = 'UPDATE_BLOCKS_TIME_AVG',
+}
+
+export class AddBlock implements Action {
+  readonly type = BlocksActionTypes.ADD_BLOCK;
+  constructor(public payload: any) {};
 }
 
 export class UpdateBlocks implements Action {
