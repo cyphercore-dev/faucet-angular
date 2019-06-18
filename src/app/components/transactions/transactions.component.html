@@ -1,26 +1,33 @@
-<table cdk-table [dataSource]="dataSource">
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10">
+      <div class="table-responsive">
+        <table class="table" cdk-table [dataSource]="dataSource">
 
-  <ng-container cdkColumnDef="hash">
-    <th cdk-header-cell *cdkHeaderCellDef> Hash </th>
-    <td cdk-cell *cdkCellDef="let element"> {{element.hash|slice:0:12}}... </td>
-  </ng-container>
+          <ng-container cdkColumnDef="hash">
+            <th cdk-header-cell *cdkHeaderCellDef> Hash </th>
+            <td cdk-cell *cdkCellDef="let element"> {{element.hash|slice:0:12}}... </td>
+          </ng-container>
 
-  <ng-container cdkColumnDef="type">
-    <th cdk-header-cell *cdkHeaderCellDef> Type </th>
-    <td cdk-cell *cdkCellDef="let element"> {{element.action[0]}} </td>
-  </ng-container>
+          <ng-container cdkColumnDef="type">
+            <th cdk-header-cell *cdkHeaderCellDef> Type </th>
+            <td cdk-cell *cdkCellDef="let element"> {{element.action[0]}} </td>
+          </ng-container>
 
-  <ng-container cdkColumnDef="height">
-    <th cdk-header-cell *cdkHeaderCellDef> Height </th>
-    <td cdk-cell *cdkCellDef="let element"> {{element.height}} </td>
-  </ng-container>
+          <ng-container cdkColumnDef="height">
+            <th cdk-header-cell *cdkHeaderCellDef> Height </th>
+            <td cdk-cell *cdkCellDef="let element"> {{element.height}} </td>
+          </ng-container>
 
-  <ng-container cdkColumnDef="time">
-    <th cdk-header-cell *cdkHeaderCellDef> Time </th>
-    <td cdk-cell *cdkCellDef="let element"> {{element.time| date:'short'}} </td>
-  </ng-container>
+          <ng-container cdkColumnDef="time">
+            <th cdk-header-cell *cdkHeaderCellDef> Time </th>
+            <td cdk-cell *cdkCellDef="let element"> {{element.time| date:'short'}} </td>
+          </ng-container>
 
-  <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-  <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
-</table>
-  
+          <tr class="thead-dark" cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+          <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

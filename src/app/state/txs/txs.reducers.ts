@@ -5,6 +5,15 @@ import { createSelector } from '@ngrx/store';
 
 export function txsReducers(txsState = initialTxsState, action): TxsState {
   switch(action.type) {
+    case TxsActionTypes.ADD_TX: {
+      return {
+        ...txsState,
+        txs: [
+          action.payload,
+          ...txsState.txs
+        ],
+      }
+    }
     
     case TxsActionTypes.UPDATE_TXS: {
       return {

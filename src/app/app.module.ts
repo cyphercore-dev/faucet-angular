@@ -12,12 +12,16 @@ import { reducers } from './state';
 import { BlocksComponent } from './components/blocks/blocks.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { CdkModule } from './cdk.module';
+import { LandingComponent } from './components/landing/landing.component';
+import { ConsensusStatusComponent } from './components/consensus-status/consensus-status.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BlocksComponent,
-    TransactionsComponent
+    TransactionsComponent,
+    LandingComponent,
+    ConsensusStatusComponent
   ],
   imports: [
     BrowserModule,

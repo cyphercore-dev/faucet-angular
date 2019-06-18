@@ -41,7 +41,12 @@ export class AppComponent implements OnInit{
       this.httpService
       .init100Blocks(height);
 
-      this.appStore
+      this.subBlocks$();
+    });
+  }
+
+  subBlocks$() {
+    this.appStore
       .select(selectConsensusHeight)
       .pipe( 
         skip(1),
@@ -50,8 +55,6 @@ export class AppComponent implements OnInit{
       .subscribe( (height: any) => {
         this.httpService.add1Block(height);
       });
-
-    });
   }
 
   initTxs() {

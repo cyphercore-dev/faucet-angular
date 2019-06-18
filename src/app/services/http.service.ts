@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { nodeRpc1, nodeRpc2 } from '../config';
-import { range, forkJoin, Observable } from 'rxjs';
+import { range, forkJoin, Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { State } from '../state';
 import { Store } from '@ngrx/store';
 import { UpdateBlocks, AddBlock } from '../state/blocks/blocks.actions';
+import { AddTx } from '../state/txs/txs.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -79,6 +80,56 @@ export class HttpService {
           time: block.header.time,
         })
       );
+      if( block.header.num_txs !== '0' ) {
+        this.getTxs(block.header.height)
+        .subscribe((txs:any) => {
+
+          from(txs)
+          .subscribe((transaction:any) => {
+
+            let formattedTransaction = {
+              hash: transaction.txhash, 
+              height: transaction.height,
+              gasUsed: transaction.gas_used,
+              gasWanted: transaction.gas_wanted,
+              time: transaction.timestamp,
+              fee: transaction.tx.value.fee,
+              memo: transaction.tx.value.memo,
+              msg: transaction.tx.value.msg,
+              error: null,
+              action: []
+            };
+      
+            if(transaction.tags) {
+              let index = 0;
+              transaction.tags.forEach((tag:any) => {
+                // TODO remove debugging
+                // console.log(tag);
+                if(tag.key === 'action') {
+                  formattedTransaction.action[index] = tag.value.replace(/_/g, ' ');
+                  index += 1;
+                }
+              });
+            }
+            // END LOGIC FOR NOT-FAULTY  
+      
+            if(transaction.code === 12) {
+              formattedTransaction.error = "out of gas";
+            } else if (transaction.code === 104) {
+              formattedTransaction.error = "no delegation distribution info";
+            } else if (transaction.code === 10) {
+              formattedTransaction.error = "insufficient account funds";
+            } else if (transaction.code === 102) {
+              formattedTransaction.error = "no delegation for this (address, validator) pair";
+            } else if (transaction.code) {
+              // TODO @aakatev find more failed tx codes
+              formattedTransaction.error = "TEST"
+              console.log(transaction);
+            }
+            this.appStore.dispatch(new AddTx(formattedTransaction));
+          });
+        });
+      }
     });
   }
 

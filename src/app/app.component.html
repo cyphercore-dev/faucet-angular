@@ -1,21 +1,26 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>
-      Height: {{ (consensus$|async).height }}
-    </span>
-    <span class="nav-spacer"></span>
-    <mat-icon class="nav-icon" 
-              routerLink="/blocks"
-              aria-hidden="false" 
-              aria-label="Example blocks icon">
-      view_carousel
-    </mat-icon>
-    <mat-icon class="nav-icon"
-              routerLink="/transactions" 
-              aria-hidden="false" 
-              aria-label="Example txs icon">
-      attach_money
-    </mat-icon>
-  </mat-toolbar-row>
-</mat-toolbar>
-<router-outlet></router-outlet>
+<div class="app-container">
+  <mat-toolbar color="primary" class="app-toolbar">
+    <button mat-icon-button (click)="sidenavRef.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h1 routerLink="/" class="app-name">Coris Dev</h1>
+  </mat-toolbar>
+  <mat-sidenav-container class="app-sidenav-container">
+    <mat-sidenav #sidenavRef class="app-sidenav" fixedTopGap="56">
+      <mat-nav-list>
+        <a mat-list-item routerLink="/blocks">    
+          <mat-icon>view_carousel</mat-icon>
+          Blocks
+        </a>
+        <a mat-list-item routerLink="/transactions">
+          <mat-icon>attach_money</mat-icon>
+          Txs
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <app-consensus-status></app-consensus-status>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
