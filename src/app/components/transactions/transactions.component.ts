@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from 'src/app/services/http.service';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/state';
-import { selectBlocks } from 'src/app/state/blocks/blocks.reducers';
-import { skipWhile, first, filter } from 'rxjs/operators';
-import { from, BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { selectTxs } from 'src/app/state/txs/txs.reducers';
-import { DataSource } from '@angular/cdk/table';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-transactions',
@@ -14,35 +11,25 @@ import { DataSource } from '@angular/cdk/table';
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit {
-  displayedColumns: string[] = ['hash', 'type', 'height', 'time'];
-  dataSource: TransactionsDataSource;
+  dataSource$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  columns = [
+    { def: 'hash', accessor: (attr) => `${attr.hash.slice(0, 15)}...` }, 
+    { def: 'type', accessor: (attr) => attr.action[0] }, 
+    { def: 'height'}, 
+    { def: 'time', accessor: (attr) => formatDate(attr.time, 'short','en-US') },
+  ];
 
   constructor(
-    private appStore: Store<State>,
-    // private httpService: HttpService,
-  ) { }
+    private appStore: Store<State>
+  ) { 
+  }
 
   ngOnInit() {
     this.appStore
     .select(selectTxs)
     .subscribe((txs:any) => {
-      // console.log(txs);
-      this.dataSource = new TransactionsDataSource(txs);
+      this.dataSource$.next(txs);
     });
   }
-}
 
-export class TransactionsDataSource extends DataSource<any> {
-  data: BehaviorSubject<any[]>;
-
-  constructor(dataSource) {
-    super();
-    this.data = new BehaviorSubject<any[]>(dataSource);
-  }
-
-  connect(): Observable<any[]> {
-    return this.data;
-  }
-
-  disconnect() {}
 }

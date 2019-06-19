@@ -14,6 +14,7 @@ import { TransactionsComponent } from './components/transactions/transactions.co
 import { CdkModule } from './cdk.module';
 import { LandingComponent } from './components/landing/landing.component';
 import { ConsensusStatusComponent } from './components/consensus-status/consensus-status.component';
+import { TableComponent } from './components/shared/table/table.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ConsensusStatusComponent } from './components/consensus-status/consensu
     BlocksComponent,
     TransactionsComponent,
     LandingComponent,
-    ConsensusStatusComponent
+    ConsensusStatusComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
