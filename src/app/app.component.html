@@ -4,6 +4,8 @@
       <mat-icon>menu</mat-icon>
     </button>
     <h1 routerLink="/" class="app-name">Coris Dev</h1>
+    <span class="app-spacer"></span>
+    <mat-slide-toggle [checked]="isDarkTheme" (change)="onSetTheme()" class="app-toggle">Night Mode</mat-slide-toggle>
   </mat-toolbar>
   <mat-sidenav-container class="app-sidenav-container">
     <mat-sidenav #sidenavRef class="app-sidenav" fixedTopGap="56">

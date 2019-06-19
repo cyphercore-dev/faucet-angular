@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { WsService } from './services/ws.service';
 import { Store } from '@ngrx/store';
 import { State } from './state';
@@ -8,6 +8,7 @@ import { HttpService } from './services/http.service';
 import { selectBlocks } from './state/blocks/blocks.reducers';
 import { from } from 'rxjs';
 import { UpdateTxs } from './state/txs/txs.actions';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-root',
@@ -15,17 +16,29 @@ import { UpdateTxs } from './state/txs/txs.actions';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
+  @HostBinding('class') componentCssClass;
   consensus$ = this.appStore.select(selectConsensusState);
+  isDarkTheme = true;
 
   constructor(
     private wsService: WsService,
     private appStore: Store<State>,
-    private httpService: HttpService
-  ) { }
+    private httpService: HttpService,
+    public overlayContainer: OverlayContainer
+  ) { 
+    this.onSetTheme();
+  }
 
   ngOnInit() {
     this.initBlocks();
     this.initTxs();
+  }
+
+  onSetTheme() {
+    this.isDarkTheme = !this.isDarkTheme;
+    let theme = this.isDarkTheme ? 'dark-theme' : 'light-theme';
+    this.overlayContainer.getContainerElement().classList.add(theme);
+    this.componentCssClass = theme;
   }
 
   initBlocks() {
