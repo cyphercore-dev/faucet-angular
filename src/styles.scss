@@ -32,12 +32,16 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   @include angular-material-theme($dark-theme);
   
   thead {
-    background-color: #6c757d;
+    background-color: #263238;
   }
 
   .page-link:hover {
     background-color: #6c757d;
     cursor: pointer;
+  }
+
+  .card-body {
+    background-color: #263238;
   }
 }
 
@@ -49,3 +53,12 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   background-color: inherit;
 }
 
+.card {
+  background-color: inherit;
+  border-color: inherit;
+  border-radius: inherit;
+}
+
+.cdk-overlay-pane {
+  background-color: white;
+}

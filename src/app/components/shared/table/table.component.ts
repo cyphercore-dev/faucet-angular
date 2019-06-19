@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { OverlayService } from '../modal/services/overlay.service';
 
 
 @Component({
@@ -20,13 +21,20 @@ export class TableComponent implements OnInit {
   tableActivePage = 0;
   tableMaxPage = 0;
 
-  constructor( ) { }
+  constructor(    
+    private overlayService: OverlayService
+  ) { }
 
   ngOnInit() { 
     this.data$.subscribe((data)=> {
       this.onDataSourceUpdate(data);
     });
   }
+
+  onOpenModal(data) {
+    this.overlayService.openModal(data);
+  }
+
 
   getColumns() {
     return this.displayedColumns.map(columns => columns.def)

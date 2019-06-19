@@ -15,6 +15,7 @@ import { CdkModule } from './cdk.module';
 import { LandingComponent } from './components/landing/landing.component';
 import { ConsensusStatusComponent } from './components/consensus-status/consensus-status.component';
 import { TableComponent } from './components/shared/table/table.component';
+import { ModalComponent } from './components/shared/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { TableComponent } from './components/shared/table/table.component';
     TransactionsComponent,
     LandingComponent,
     ConsensusStatusComponent,
-    TableComponent
+    TableComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +40,9 @@ import { TableComponent } from './components/shared/table/table.component';
     ],
   ],
   providers: [],
+  entryComponents: [
+    ModalComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

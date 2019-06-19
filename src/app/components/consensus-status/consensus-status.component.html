@@ -1,12 +1,17 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-10 py-lg-5 py-3">        
-      <div class="progress">
-        <span style="position:absolute; width:100%; color: #fff; font-size:.75rem; text-align: center;">{{ progress }}%</span>
-        <div class="progress-bar progress-bar-animated  progress-bar-striped" role="progressbar" [style.width]="progress+'%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+<div class="container my-3">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Consensus</h5>
+      <div class="row">
+        <div class="col-lg-10 py-lg-5 py-3">        
+          <div class="progress">
+            <span style="position:absolute; width:100%; color: #fff; font-size:.75rem; text-align: center;">{{ progress }}%</span>
+            <div class="progress-bar progress-bar-animated  progress-bar-striped" role="progressbar" [style.width]="progress+'%'" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="mat-typography col-6 col-lg-2 py-lg-5">Height: {{ (height|async) }}</div>
       </div>
     </div>
-    <div class="col-2 py-lg-5">Height: {{ (height|async) }}</div>
   </div>
 </div>
   

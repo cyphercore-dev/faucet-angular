@@ -3,7 +3,7 @@ import { WsService } from './services/ws.service';
 import { Store } from '@ngrx/store';
 import { State } from './state';
 import { selectConsensusState, selectConsensusHeight } from './state/consensus/consensus.reducers';
-import { skipWhile, map, first, filter, mergeMap, concatMap, skip } from 'rxjs/operators';
+import { skipWhile, map, first, filter, concatMap, skip } from 'rxjs/operators';
 import { HttpService } from './services/http.service';
 import { selectBlocks } from './state/blocks/blocks.reducers';
 import { from } from 'rxjs';
@@ -11,6 +11,7 @@ import { UpdateTxs } from './state/txs/txs.actions';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { selectActiveTheme } from './state/settings/settings.reducers';
 import { ToggleTheme } from './state/settings/settings.actions';
+import { OverlayService } from './components/shared/modal/services/overlay.service';
 
 @Component({
   selector: 'app-root',
@@ -26,10 +27,11 @@ export class AppComponent implements OnInit{
     private wsService: WsService,
     private appStore: Store<State>,
     private httpService: HttpService,
-    public overlayContainer: OverlayContainer
+    public overlayContainer: OverlayContainer,
+    // private overlayService: OverlayService
   ) { 
     this.theme$.subscribe((theme: string) => {
-      this.overlayContainer.getContainerElement().classList.add(theme);
+      this.overlayContainer.getContainerElement().className = `cdk-overlay-container ${theme}`;
       this.componentCssClass = theme;
     });
   }
@@ -42,6 +44,10 @@ export class AppComponent implements OnInit{
   onToggleTheme() {
     this.appStore.dispatch(new ToggleTheme());
   }
+  
+  // onOpenModal(data) {
+  //   this.overlayService.openModal(data);
+  // }
 
   initBlocks() {
    this.appStore

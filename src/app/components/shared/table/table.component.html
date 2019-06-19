@@ -1,5 +1,5 @@
  <div class="table-responsive">
-  <table #tableRef class="table" cdk-table [dataSource]="dataSource">
+  <table #tableRef class="table table-bordered" cdk-table [dataSource]="dataSource">
     <ng-container *ngFor="let col of displayedColumns" [cdkColumnDef]="col.def">
       <th cdk-header-cell *cdkHeaderCellDef> {{ col.def | titlecase }} </th>
       <td cdk-cell *cdkCellDef="let element"> 
@@ -11,7 +11,7 @@
     </ng-container>
 
     <tr cdk-header-row *cdkHeaderRowDef="getColumns()"></tr>
-    <tr cdk-row *cdkRowDef="let row; columns: getColumns();"></tr>
+    <tr (click)="onOpenModal(row)" cdk-row *cdkRowDef="let row; columns: getColumns();"></tr>
   </table>
 </div>
 <nav>

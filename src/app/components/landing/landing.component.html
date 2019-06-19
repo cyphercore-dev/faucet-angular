@@ -1,6 +1,15 @@
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-lg-10 py-lg-5 py-3">
-      lol
+  <div class="row">
+
+    <div *ngFor="let card of cards" class="py-lg-3 py-1 col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{card.title|titlecase}}</h5>
+          <p class="card-text">Status: {{ (card.size|async).length }} {{card.title}} currently stored.</p>
+          <a [routerLink]="card.title" class="btn btn-primary">Explore</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
