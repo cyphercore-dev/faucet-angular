@@ -18,6 +18,10 @@ $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
     background-color: #007bff;
     cursor: pointer;
   }
+
+  .cdk-overlay-pane {
+    background-color: #ffffff;
+  }
 }
 
 
@@ -42,6 +46,11 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
   .card-body {
     background-color: #263238;
+    color: #ffffff;
+  }
+
+  .cdk-overlay-pane {
+    background-color: #424242;;
   }
 }
 
@@ -59,6 +68,6 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
   border-radius: inherit;
 }
 
-.cdk-overlay-pane {
-  background-color: white;
+app-modal {
+  width: 100%;
 }

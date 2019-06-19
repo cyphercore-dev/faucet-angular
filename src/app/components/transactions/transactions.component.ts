@@ -4,6 +4,8 @@ import { State } from 'src/app/state';
 import { BehaviorSubject } from 'rxjs';
 import { selectTxs } from 'src/app/state/txs/txs.reducers';
 import { formatDate } from '@angular/common';
+import { OverlayService } from '../shared/modal/services/overlay.service';
+import { TemplateService } from '../shared/modal/services/template.service';
 
 @Component({
   selector: 'app-transactions',
@@ -20,7 +22,9 @@ export class TransactionsComponent implements OnInit {
   ];
 
   constructor(
-    private appStore: Store<State>
+    private appStore: Store<State>,
+    private overlayService: OverlayService,
+    private templateService: TemplateService
   ) { 
   }
 
@@ -30,6 +34,12 @@ export class TransactionsComponent implements OnInit {
     .subscribe((txs:any) => {
       this.dataSource$.next(txs);
     });
+  }
+
+  onTxClick(tx) {
+    this.overlayService.openModal(
+      this.templateService.getTransactionTemplate(tx)
+    );
   }
 
 }

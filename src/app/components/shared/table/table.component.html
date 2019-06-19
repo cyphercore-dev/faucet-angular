@@ -11,7 +11,7 @@
     </ng-container>
 
     <tr cdk-header-row *cdkHeaderRowDef="getColumns()"></tr>
-    <tr (click)="onOpenModal(row)" cdk-row *cdkRowDef="let row; columns: getColumns();"></tr>
+    <tr cdk-row *cdkRowDef="let row; columns: getColumns();" (click)="onClick.emit(row)"></tr>
   </table>
 </div>
 <nav>

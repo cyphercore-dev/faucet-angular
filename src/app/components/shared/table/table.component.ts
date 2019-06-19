@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DataSource } from '@angular/cdk/table';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { OverlayService } from '../modal/services/overlay.service';
@@ -15,6 +15,9 @@ export class TableComponent implements OnInit {
   
   @Input('data')
   data$: BehaviorSubject<any[]>;
+
+  @Output() 
+  onClick = new EventEmitter();
 
   dataSource: SlicedDataSource;
   tablePageSize = 10;

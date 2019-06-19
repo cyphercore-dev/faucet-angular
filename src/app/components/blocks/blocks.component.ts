@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/state';
 import { selectBlocks } from 'src/app/state/blocks/blocks.reducers';
+import { OverlayService } from '../shared/modal/services/overlay.service';
+import { TemplateService } from '../shared/modal/services/template.service';
 
 export interface Block {
   hash: string;
@@ -28,6 +30,8 @@ export class BlocksComponent implements OnInit {
 
   constructor(
     private appStore: Store<State>,
+    private overlayService: OverlayService,
+    private templateService: TemplateService
   ) { }
 
   ngOnInit() { 
@@ -36,5 +40,11 @@ export class BlocksComponent implements OnInit {
     .subscribe((blocks:any) => {
       this.dataSource$.next(blocks);
     });
+  }
+
+  onBlockClick(block) {
+    this.overlayService.openModal(
+      this.templateService.getBlockTemplate(block)
+    );
   }
 }

@@ -1,5 +1,12 @@
-import { Component, Inject, InjectionToken } from '@angular/core';
+import { Component, Inject, InjectionToken, Directive, ViewContainerRef, ViewChild, ComponentFactoryResolver, OnInit, Input } from '@angular/core';
 import { OverlayRef } from '@angular/cdk/overlay';
+
+@Directive({
+  selector: '[templateHost]',
+})
+export class TemplateDirective {
+  constructor(public viewContainerRef: ViewContainerRef) { }
+}
 
 export class ModalOverlayRef {
   constructor(private overlayRef: OverlayRef) { }
@@ -9,7 +16,7 @@ export class ModalOverlayRef {
   }
 }
 
-export const MODAL_DATA = new InjectionToken<any>('MODAL_DATA');
+export const MODAL_TEMPLATE = new InjectionToken<any>('MODAL_TEMPLATE');
 
 @Component({
   selector: 'app-modal',
@@ -17,9 +24,28 @@ export const MODAL_DATA = new InjectionToken<any>('MODAL_DATA');
   styleUrls: ['./modal.component.scss']
 })
 
-export class ModalComponent {
+export class ModalComponent implements OnInit {
+  @ViewChild(TemplateDirective) 
+  templateHost: TemplateDirective;
+
   constructor(
     public modalRef: ModalOverlayRef,
-    @Inject(MODAL_DATA) public data: any
+    @Inject(MODAL_TEMPLATE) public template: any,
+    private componentFactoryResolver: ComponentFactoryResolver,
   ) { }
+
+  
+  ngOnInit() {
+    this.loadComponent();
+  }
+
+  loadComponent() {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(this.template.component);
+    const viewContainerRef = this.templateHost.viewContainerRef;
+
+    viewContainerRef.clear();
+
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    (<any>componentRef.instance).data = this.template.data;
+  }
 }

@@ -1,16 +1,16 @@
 import { Injectable, Injector, ComponentRef } from '@angular/core';
 import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
-import { ModalOverlayRef, ModalComponent, MODAL_DATA } from '../modal.component';
+import { ModalOverlayRef, ModalComponent, MODAL_TEMPLATE } from '../modal.component';
 
 export interface ModalConfig {
   hasBackdrop?: boolean;
-  data?: any;
+  template? :any;
 }
 
 export const DEFAULT_CONFIG: ModalConfig = {
   hasBackdrop: true,
-  data: null
+  template: null,
 }
 
 @Injectable({
@@ -20,15 +20,14 @@ export const DEFAULT_CONFIG: ModalConfig = {
 export class OverlayService {
   constructor(
     private injector: Injector,
-    private overlay: Overlay) { }
+    private overlay: Overlay
+  ) { }
 
   private open(config: ModalConfig = {}) {
     const modalConfig = { ...DEFAULT_CONFIG, ...config };
 
-    // Returns an OverlayRef which is a PortalHost
     const overlayRef = this.createOverlay(modalConfig);
 
-    // Instantiate remote control
     const modalRef = new ModalOverlayRef(overlayRef);
     const overlayComponent = this.attachDialogContainer(overlayRef, modalConfig, modalRef);
 
@@ -37,9 +36,9 @@ export class OverlayService {
     return modalRef;
   }
 
-  public openModal(data) {
+  public openModal(template) {
     let modalRef: ModalOverlayRef = this.open({
-      data
+      template
     });
   }
 
@@ -61,7 +60,7 @@ export class OverlayService {
     const injectionTokens = new WeakMap();
 
     injectionTokens.set(ModalOverlayRef, modalRef);
-    injectionTokens.set(MODAL_DATA, config.data);
+    injectionTokens.set(MODAL_TEMPLATE, config.template);
 
     return new PortalInjector(this.injector, injectionTokens);
   }
@@ -76,8 +75,8 @@ export class OverlayService {
       hasBackdrop: config.hasBackdrop,
       scrollStrategy: this.overlay.scrollStrategies.block(),
       positionStrategy,
-      height: '70vh',
-      width: '80vw',
+      height: 'auto',
+      width: 'auto',
     });
 
     return overlayConfig;

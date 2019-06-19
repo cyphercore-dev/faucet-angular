@@ -15,7 +15,9 @@ import { CdkModule } from './cdk.module';
 import { LandingComponent } from './components/landing/landing.component';
 import { ConsensusStatusComponent } from './components/consensus-status/consensus-status.component';
 import { TableComponent } from './components/shared/table/table.component';
-import { ModalComponent } from './components/shared/modal/modal.component';
+import { ModalComponent, TemplateDirective } from './components/shared/modal/modal.component';
+import { BlockComponent } from './components/shared/modal/templates/block/block.component';
+import { TransactionComponent } from './components/shared/modal/templates/transaction/transaction.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,10 @@ import { ModalComponent } from './components/shared/modal/modal.component';
     LandingComponent,
     ConsensusStatusComponent,
     TableComponent,
-    ModalComponent
+    ModalComponent,
+    BlockComponent,
+    TemplateDirective,
+    TransactionComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,9 @@ import { ModalComponent } from './components/shared/modal/modal.component';
   ],
   providers: [],
   entryComponents: [
-    ModalComponent
+    ModalComponent,
+    BlockComponent,
+    TransactionComponent
   ],
   bootstrap: [AppComponent]
 })
