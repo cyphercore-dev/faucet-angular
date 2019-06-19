@@ -9,6 +9,8 @@ import { selectBlocks } from './state/blocks/blocks.reducers';
 import { from } from 'rxjs';
 import { UpdateTxs } from './state/txs/txs.actions';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { selectActiveTheme } from './state/settings/settings.reducers';
+import { ToggleTheme } from './state/settings/settings.actions';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +20,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 export class AppComponent implements OnInit{
   @HostBinding('class') componentCssClass;
   consensus$ = this.appStore.select(selectConsensusState);
-  isDarkTheme = true;
+  theme$ = this.appStore.select(selectActiveTheme);
 
   constructor(
     private wsService: WsService,
@@ -26,7 +28,10 @@ export class AppComponent implements OnInit{
     private httpService: HttpService,
     public overlayContainer: OverlayContainer
   ) { 
-    this.onSetTheme();
+    this.theme$.subscribe((theme: string) => {
+      this.overlayContainer.getContainerElement().classList.add(theme);
+      this.componentCssClass = theme;
+    });
   }
 
   ngOnInit() {
@@ -34,11 +39,8 @@ export class AppComponent implements OnInit{
     this.initTxs();
   }
 
-  onSetTheme() {
-    this.isDarkTheme = !this.isDarkTheme;
-    let theme = this.isDarkTheme ? 'dark-theme' : 'light-theme';
-    this.overlayContainer.getContainerElement().classList.add(theme);
-    this.componentCssClass = theme;
+  onToggleTheme() {
+    this.appStore.dispatch(new ToggleTheme());
   }
 
   initBlocks() {

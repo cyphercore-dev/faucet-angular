@@ -1,40 +1,51 @@
 @import '~@angular/material/theming';
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat-core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
 $light-primary: mat-palette($mat-teal, 600);
 $light-accent:  mat-palette($mat-pink, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
 $light-warn:    mat-palette($mat-orange, 900);
 
-// Create the theme object (a Sass map containing all of the palettes).
 $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
 
-// Define an alternate dark theme.
-$dark-primary: mat-palette($mat-blue-grey);
-$dark-accent:  mat-palette($mat-amber, A200, A100, A400);
-$dark-warn:    mat-palette($mat-deep-orange);
-$dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
-
-// Include the alternative theme styles inside of a block with a CSS class. You can make this
-// CSS class whatever you want. In this example, any component inside of an element with
-// `.unicorn-dark-theme` will be affected by this alternate dark theme instead of the default theme.
 .light-theme {
   @include angular-material-theme($light-theme);
+  
+  td, th {
+    border-color: #000000 !important;
+  }
+
+  .page-link:hover {
+    background-color: #007bff;
+    cursor: pointer;
+  }
 }
+
+
+$dark-primary: mat-palette($mat-blue-grey, 900);
+$dark-accent:  mat-palette($mat-amber, A200, A100, A400);
+$dark-warn:    mat-palette($mat-deep-orange);
+
+$dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
 
 .dark-theme {
   @include angular-material-theme($dark-theme);
+  
+  thead {
+    background-color: #6c757d;
+  }
+
+  .page-link:hover {
+    background-color: #6c757d;
+    cursor: pointer;
+  }
 }
 
 .table {
   color: inherit;
 }
+
+.page-link {
+  background-color: inherit;
+}
+

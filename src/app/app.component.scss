@@ -1,12 +1,3 @@
-.nav-icon {
-  padding: 0 14px;
-  cursor: pointer;
-}
-
-.nav-icon:hover {
-  color: pink;
-}
-
 .app-spacer {
   flex: 1 1 auto;
 }
@@ -35,5 +26,15 @@ h1.app-name {
 }
 
 .app-sidenav {
-  min-width: 180px;
+  min-width: 250px;
+}
+
+.mat-list-item span {
+  margin-left: 10px;
+}
+
+.settings-list {
+  position: fixed; 
+  bottom: 0;
+  padding-bottom: 10px;
 }

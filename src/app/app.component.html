@@ -5,20 +5,24 @@
     </button>
     <h1 routerLink="/" class="app-name">Coris Dev</h1>
     <span class="app-spacer"></span>
-    <mat-slide-toggle [checked]="isDarkTheme" (change)="onSetTheme()" class="app-toggle">Night Mode</mat-slide-toggle>
   </mat-toolbar>
   <mat-sidenav-container class="app-sidenav-container">
     <mat-sidenav #sidenavRef class="app-sidenav" fixedTopGap="56">
       <mat-nav-list>
         <a mat-list-item routerLink="/blocks">    
           <mat-icon>view_carousel</mat-icon>
-          Blocks
+          <span>Blocks</span>
         </a>
         <a mat-list-item routerLink="/transactions">
           <mat-icon>attach_money</mat-icon>
-          Txs
+          <span>Transactions</span>
         </a>
       </mat-nav-list>
+      <mat-list class="settings-list">
+        <a mat-list-item>
+          <mat-slide-toggle (change)="onToggleTheme()" class="app-toggle">Night Mode</mat-slide-toggle>
+        </a>
+      </mat-list>
     </mat-sidenav>
     <mat-sidenav-content>
       <app-consensus-status></app-consensus-status>

@@ -3,7 +3,6 @@
     <div class="col-12 col-lg-10">
       <div class="table-responsive">
         <table class="table" cdk-table [dataSource]="dataSource">
-
           <ng-container cdkColumnDef="height">
             <th cdk-header-cell *cdkHeaderCellDef> Height </th>
             <td cdk-cell *cdkCellDef="let element"> {{element.height}} </td>
@@ -24,10 +23,23 @@
             <td cdk-cell *cdkCellDef="let element"> {{element.txs}} </td>
           </ng-container>
 
-          <tr class="thead-dark" cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+          <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
           <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       </div>
+      <nav>
+        <ul class="pagination justify-content-end">
+          <li class="page-item">
+            <a class="page-link" (click)="onTablePrevPage()">Previous</a>
+          </li>
+          <li *ngIf="tableActivePage > 0" class="page-item"><a class="page-link">{{tableActivePage}}</a></li>
+          <li class="page-item active"><a class="page-link">{{tableActivePage+1}}</a></li>
+          <li *ngIf="tableMaxPage > tableActivePage" class="page-item"><a class="page-link">{{tableActivePage+2}}</a></li>
+          <li class="page-item">
+            <a class="page-link" (click)="onTableNextPage()">Next</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </div>

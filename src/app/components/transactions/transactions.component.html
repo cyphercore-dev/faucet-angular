@@ -3,7 +3,6 @@
     <div class="col-12 col-lg-10">
       <div class="table-responsive">
         <table class="table" cdk-table [dataSource]="dataSource">
-
           <ng-container cdkColumnDef="hash">
             <th cdk-header-cell *cdkHeaderCellDef> Hash </th>
             <td cdk-cell *cdkCellDef="let element"> {{element.hash|slice:0:12}}... </td>
@@ -24,7 +23,7 @@
             <td cdk-cell *cdkCellDef="let element"> {{element.time| date:'short'}} </td>
           </ng-container>
 
-          <tr class="thead-dark" cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+          <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
           <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       </div>
