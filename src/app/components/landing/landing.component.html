@@ -1,15 +1,13 @@
 <div class="container">
   <div class="row">
-
     <div *ngFor="let card of cards" class="py-lg-3 py-1 col-lg-6">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{card.title|titlecase}}</h5>
-          <p class="card-text">Status: {{ (card.size|async).length }} {{card.title}} currently stored.</p>
+          <p class="card-text">{{ card.description() }}</p>
           <a [routerLink]="card.title" class="btn btn-primary">Explore</a>
         </div>
       </div>
     </div>
-
   </div>
 </div>

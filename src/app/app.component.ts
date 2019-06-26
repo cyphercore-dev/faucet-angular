@@ -93,7 +93,7 @@ export class AppComponent implements OnInit{
         concatMap(block => this.httpService.getTxs(block.height))
       )
       .subscribe((txs:any) => {
-        transactions.push(...txs);
+        transactions.push(...txs.txs);
       },
       (err) => console.log,
       () => {

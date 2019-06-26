@@ -22,6 +22,20 @@ $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
   .cdk-overlay-pane {
     background-color: #ffffff;
   }
+  
+  .mat-drawer {
+    background-color: #00897b;
+    color: white;
+  }
+
+  .mat-list-item {
+    color: white !important;
+  }
+
+  .footer {
+    background-color: #00897b;
+    color: white;
+  }
 }
 
 
@@ -51,6 +65,11 @@ $dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
   .cdk-overlay-pane {
     background-color: #424242;;
+  }
+
+  .footer {
+    background-color: #263238;
+    color: white;
   }
 }
 

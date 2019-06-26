@@ -3,12 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { BlocksComponent } from './components/blocks/blocks.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import { LandingComponent } from './components/landing/landing.component';
+import { FaucetComponent } from './components/faucet/faucet.component';
 
 const routes: Routes = [
-  { path: '', component: LandingComponent },
+  { path: 'faucet', component: FaucetComponent },
+  { path: 'dashboard', component: LandingComponent },
   { path: 'blocks', component: BlocksComponent },
   { path: 'transactions', component: TransactionsComponent },
-  { path: '**', redirectTo:'/' }
+  { path: '**', redirectTo:'faucet' },
 ];
 
 @NgModule({

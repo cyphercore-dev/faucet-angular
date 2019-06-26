@@ -18,6 +18,9 @@ import { TableComponent } from './components/shared/table/table.component';
 import { ModalComponent, TemplateDirective } from './components/shared/modal/modal.component';
 import { BlockComponent } from './components/shared/modal/templates/block/block.component';
 import { TransactionComponent } from './components/shared/modal/templates/transaction/transaction.component';
+import { FaucetComponent } from './components/faucet/faucet.component';
+import { BlocksTableComponent } from './components/blocks/blocks-table/blocks-table.component';
+import { TransactionsTableComponent } from './components/transactions/transactions-table/transactions-table.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { TransactionComponent } from './components/shared/modal/templates/transa
     ModalComponent,
     BlockComponent,
     TemplateDirective,
-    TransactionComponent
+    TransactionComponent,
+    FaucetComponent,
+    BlocksTableComponent,
+    TransactionsTableComponent
   ],
   imports: [
     BrowserModule,

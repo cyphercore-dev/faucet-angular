@@ -7,12 +7,15 @@ import { TxsState } from './txs/txs.interface';
 import { txsReducers } from './txs/txs.reducers';
 import { SettingsState } from './settings/settings.interface';
 import { settingsReducers } from './settings/settings.reducers';
+import { faucetReducers } from './faucet/faucet.reducers';
+import { FaucetState } from './faucet/faucet.interface';
 
 export const reducers: ActionReducerMap<State> = {
   blocksState: blocksReducers,
   txsState: txsReducers,
   consensusState: consensusRedusers,
-  settingsState: settingsReducers
+  settingsState: settingsReducers,
+  faucetState: faucetReducers
 };
 
 export interface State {
@@ -20,4 +23,5 @@ export interface State {
   txsState: TxsState;
   consensusState: ConsensusState;
   settingsState: SettingsState;
+  faucetState: FaucetState;
 };

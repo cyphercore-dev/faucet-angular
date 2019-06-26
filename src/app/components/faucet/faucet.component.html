@@ -1,0 +1,51 @@
+<div class="container my-3">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">
+        <span class="text-secondary">Faucet:</span> {{((faucet$|async).address)}}
+      </h5>
+      <h6 class="card-subtitle">
+        <span class="text-secondary">Balance:</span> {{((faucet$|async).coins[0].amount)}} {{((faucet$|async).coins[0].denom | titlecase)}}
+      </h6>
+      <div class="row">
+        <div class="col-lg-10 py-lg-5 py-3 mx-auto">
+          <div class="jumbotron bg-transparent jumbotron-fluid">
+            <div class="container">
+              <h1 class="display-6">Welcome!</h1>
+              <p class="lead">Please enter your account address below, and we will be glad to send you 50 Trees!</p>
+            </div>
+          </div>        
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-secondary text-light" id="basic-addon1">xrn:</span>
+            </div>
+            <input #addrInputRef type="text" class="form-control" placeholder="Enter account address">
+            <div class="input-group-append">
+              <button (click)="onFaucetRequest(addrInputRef.value)" class="btn btn-primary" type="button" id="button-addon2">Claim</button>
+            </div>
+          </div>
+          <div class="alert {{statusClass}}" role="alert">
+            Status: {{statusText}}
+            <button type="button" (click)="onStatusHide()" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container my-3">
+  <hr>
+  <span *ngIf="txsSize > 0; else elseBlock">
+    <h5>Recent transactions</h5>
+    <app-transactions-table></app-transactions-table>
+  </span>
+  <ng-template #elseBlock>
+    <div class="row justify-content-center">
+      <div class="col-8">
+        No recent transactions
+      </div>
+    </div>
+  </ng-template>      
+</div>

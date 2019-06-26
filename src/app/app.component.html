@@ -3,8 +3,9 @@
     <button mat-icon-button (click)="sidenavRef.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
-    <h1 routerLink="/" class="app-name">Coris Dev</h1>
+    <h1 routerLink="/" class="app-name">Coris <span class="badge badge-info">dev</span></h1>
     <span class="app-spacer"></span>
+    Network: regen-test-1001
   </mat-toolbar>
   <mat-sidenav-container class="app-sidenav-container">
     <mat-sidenav #sidenavRef class="app-sidenav" fixedTopGap="56">
@@ -25,9 +26,17 @@
       </mat-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <app-consensus-status></app-consensus-status>
       <router-outlet></router-outlet>
-      <!-- <button (click)="onOpenModal('hello')">Button</button> -->
+
+      <footer class="footer mt-auto py-3">
+        <div class="container">
+          <p class="text-center">
+            Explore Cosmos using <a href="http://coris.network">Coris</a>!
+            <br>
+            Brought by <a href="http://cyphercore.io/">Cypher Core</a> 
+          </p>
+        </div>
+      </footer>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

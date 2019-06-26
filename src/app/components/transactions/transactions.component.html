@@ -1,10 +1,8 @@
+<app-consensus-status></app-consensus-status>
 <div class="container-fluid">
   <div class="row justify-content-center">
     <div class="col-12 col-lg-10">
-        <app-table  [columns]="columns"
-                    [data]="dataSource$"
-                    (onClick)="onTxClick($event)">
-        </app-table>
+      <app-transactions-table></app-transactions-table>
     </div>
   </div>
 </div>

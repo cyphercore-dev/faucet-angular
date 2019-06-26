@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { nodeRpc1, nodeRpc2 } from '../config';
+import { nodeRpc1, nodeRpc2, faucetRpc } from '../config';
 import { range, forkJoin, Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { State } from '../state';
@@ -17,6 +17,14 @@ export class HttpService {
     private httpClient: HttpClient,
     private appStore: Store<State>
   ) { }
+
+  getAccount(address) {
+    return this.httpClient.get(`${nodeRpc1}/auth/accounts/${address}`);
+  }
+
+  postFaucet(address) {
+    return this.httpClient.post(`${faucetRpc}/faucet/request`, { recipient: address });
+  }
 
   getBlock(height) {
     return this.httpClient.get(`${nodeRpc1}/blocks/${height}`);
@@ -84,7 +92,7 @@ export class HttpService {
         this.getTxs(block.header.height)
         .subscribe((txs:any) => {
 
-          from(txs)
+          from(txs.txs)
           .subscribe((transaction:any) => {
 
             let formattedTransaction = {

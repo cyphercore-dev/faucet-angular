@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/state';
 import { selectBlocks } from 'src/app/state/blocks/blocks.reducers';
@@ -9,10 +9,13 @@ import { selectTxs } from 'src/app/state/txs/txs.reducers';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, OnDestroy {
+  blocksSize = 0;
+  blocks$ =  this.appStore.select(selectBlocks).subscribe(blocks => this.blocksSize = blocks.length);
+
   cards = [
-    { title: 'blocks', size: this.appStore.select(selectBlocks) },
-    { title: 'transactions', size: this.appStore.select(selectTxs) }
+    { title: 'blocks', description: () => `Last ${this.blocksSize} blocks.` },
+    { title: 'transactions', description: () => `Transactions on last ${this.blocksSize} blocks.` }
   ]
 
   constructor(
@@ -20,6 +23,10 @@ export class LandingComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.blocks$.unsubscribe();
   }
 
 }
